@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            margin: 0;
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(0deg, #e87d7d 0%, #11a4ff 100%);
+            overflow: hidden;
+            transition: background 1s ease;
+            -webkit-user-select: none; /* Prevent text selection during scroll */
+            touch-action: pan-y; /* Allow vertical panning */
+        }
+
+        #envelope {
+            position: absolute;
+            top: calc(50vh - 200px);
+            left: calc(50vw - 150px);
+            width: 300px;
+            height: 300px;
+            transition: transform 0.5s ease;
+            touch-action: none; /* Prevent parent from interfering */
+        }
+
+        #envelope > * {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            transition: opacity 0.5s ease;
+        }
+
+        #back { display: block; z-index: 0; }
+        #front { display: block; z-index: 10; }
+        #top { display: block; z-index: 11; }
+
+        #top.animate,
+        #front.animate,
+        #back.animate,
+        #envelope button.animate {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+            transition-delay: 1s;
+        }
+
+        /* ===== LETTER STYLING ===== */
+        #letter {
+            display: block; /* Changed from flex to block for better touch control */
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            padding: 10px;
+            z-index: 5;
+            left: 15px;
+            right: 15px;
+            bottom: 5px;
+            top: 105px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            max-height: 300px;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth swipe on iOS/Android */
+            scroll-behavior: smooth;
+            border-radius: 8px;
+            touch-action: pan-y; /* Explicitly allow vertical scrolling */
+            -ms-touch-action: pan-y; /* For IE/Edge */
+        }
+
+        /* Wide content inside letter for horizontal scroll if needed */
+        .letter-content {
+            width: 100%; /* Ensure content fits and scrolls vertically */
+            padding-right: 10px; /* Prevent content from being cut off */
+        }
+
+        #letter::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        #letter::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        #letter::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        #letter::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        h1 {
+            padding-top: 12px;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        h1 span { color: #d81b60; }
+
+        p {
+            font-size: 17px;
+            padding: 2px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        #letter img {
+            background-size: cover;
+            transition: transform 0.5s ease;
+        }
+
+        #letter.animate {
+            animation: makebig 2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes makebig {
+            0% { top: 105px; left: 15px; right: 15px; bottom: 5px; font-size: 16px; opacity: 0; }
+            33% { top: -100px; left: 15px; right: 15px; bottom: 150px; font-size: 16px; opacity: 0.5; }
+            100% { top: 0px; left: -55px; right: -25px; bottom: -100px; font-size: 24px; opacity: 1; }
+        }
+
+        a {
+            color: #d81b60;
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        a:hover {
+            color: #ff4081;
+            text-shadow: 0 0 5px #ff4081;
+        }
+
+        #envelope button {
+            display: block;
+            z-index: 15;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(45deg, #b3ef1a, #a0d911);
+            font-weight: bold;
+            text-align: center;
+            color: #f605ff;
+            cursor: pointer;
+            top: calc(200px - 25px);
+            left: calc(150px - 25px);
+            transition: all 0.5s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #envelope button:hover {
+            background: linear-gradient(45deg, #f619f2, #e40ce4);
+            transform: scale(1.5);
+            color: #c2ff29;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .text h1 {
+            color: #000;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+    <script>
+        function openUp() {
+            const $opentop = document.querySelector("#opentop");
+            const $top = document.querySelector("#top");
+            const $front = document.querySelector("#front");
+            const $back = document.querySelector("#back");
+            const $letter = document.querySelector("#letter");
+            const $button = document.querySelector("button");
+
+            $opentop.beginElement();
+            $top.style.zIndex = 2;
+            $top.style.transition = "transform 0.5s ease";
+
+            $top.classList.add("animate");
+            $front.classList.add("animate");
+            $back.classList.add("animate");
+            $button.classList.add("animate");
+            $letter.classList.add("animate");
+
+            // Smooth scroll to bottom after animation
+            setTimeout(() => {
+                $letter.scrollTo({ top: $letter.scrollHeight, behavior: "smooth" });
+            }, 1500);
+        }
+    </script>
+</head>
+<body>
+    <div class="text">
+        <h1>Hey! Listen, this is for you ....</h1>
+    </div>
+
+    <div id="envelope">
+        <div id="back">
+            <svg xmlns="http://www.w3.org/2000/svg" height="300" width="300">
+                <polygon points="0,100 300,100 300,300 0,300" style="fill: #4a274a;" />
+            </svg>
+        </div>
+        <div id="front">
+            <svg xmlns="http://www.w3.org/2000/svg" height="300" width="300">
+                <polygon points="0,100 150,200 300,100 300,300 0,300" style="fill: #2abad0; stroke:#000; stroke-width:3" />
+            </svg>
+        </div>
+        <div id="top">
+            <svg xmlns="http://www.w3.org/2000/svg" height="300" width="300">
+                <polygon points="0,100 150,200 300,100" style="fill: #2abad0; stroke:#fff; stroke-width:2">
+                    <animate id="opentop" attributeName="points" dur="0.7s" fill="freeze" begin="indefinite" from="0,100 150,200 300,100" to="0,100 150,0 300,100" />
+                </polygon>
+            </svg>
+        </div>
+
+        <div id="letter">
+            <div class="letter-content">
+              
+                <p>
+                  <h1>Nothing</h1> 
+                </p>
+                           </div>
+        </div>
+
+        <button onclick="openUp()">Click Here</button>
+    </div>
+</body>
+</html>
