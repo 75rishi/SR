@@ -73,7 +73,6 @@
     margin-bottom:44px;animation:fadeDown 1s 0.4s ease both;
   }
 
-  /* COUNTDOWN */
   .countdown {
     display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
     margin-bottom:50px;animation:fadeUp 1s 0.6s ease both;
@@ -101,7 +100,6 @@
   .unit-label{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.3);}
   .dot{font-size:1.8rem;color:rgba(245,200,66,0.3);align-self:center;padding-bottom:20px;}
 
-  /* ENVELOPE BUTTON */
   .env-btn-wrap{animation:fadeUp 1s 0.9s ease both;margin-bottom:24px;}
 
   .env-btn {
@@ -112,28 +110,14 @@
     text-transform:uppercase;cursor:pointer;
     transition:all 0.3s ease;display:flex;align-items:center;gap:12px;
   }
-  .env-btn:hover:not(.locked) {
+  .env-btn:hover {
     background:linear-gradient(135deg,rgba(255,107,157,0.25),rgba(245,200,66,0.15));
     border-color:rgba(255,107,157,0.7);transform:translateY(-2px);
     box-shadow:0 8px 30px rgba(255,107,157,0.2);
   }
-  .env-btn.locked {
-    opacity:0.5;cursor:not-allowed;
-    border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.4);
-    background:rgba(255,255,255,0.04);
-  }
   .env-btn svg{transition:transform 0.3s;}
-  .env-btn:hover:not(.locked) svg{transform:scale(1.15) rotate(-5deg);}
+  .env-btn:hover svg{transform:scale(1.15) rotate(-5deg);}
 
-  /* Lock hint */
-  .lock-hint {
-    font-size:0.65rem;letter-spacing:0.2em;color:rgba(255,255,255,0.25);
-    margin-top:6px;margin-bottom:0;
-    animation:fadeUp 1s 1s ease both;
-  }
-  .lock-hint span{color:rgba(255,107,157,0.5);}
-
-  /* Saturday badge */
   .event-date{
     font-size:0.7rem;letter-spacing:0.5em;text-transform:uppercase;
     color:rgba(255,255,255,0.25);margin-bottom:12px;
@@ -162,7 +146,7 @@
   @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-  /* ===== PASSWORD MODAL ===== */
+  /* PASSWORD MODAL */
   .pw-overlay {
     display:none;position:fixed;inset:0;z-index:200;
     background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);
@@ -189,10 +173,13 @@
     color:#fff;margin-bottom:6px;
   }
   .pw-hint{
-    font-size:0.7rem;letter-spacing:0.2em;
-    color:rgba(255,255,255,0.35);margin-bottom:24px;
+    font-size:0.75rem;letter-spacing:0.15em;
+    color:rgba(255,255,255,0.4);margin-bottom:24px;
+    font-family:'DM Mono',monospace;
   }
-  .pw-hint strong{color:var(--rose);letter-spacing:0.3em;}
+  .pw-hint strong{
+    color:var(--rose);font-size:0.95rem;letter-spacing:0.25em;
+  }
 
   .pw-input-wrap{position:relative;margin-bottom:16px;}
   .pw-input {
@@ -238,95 +225,6 @@
   }
   .pw-cancel:hover{color:rgba(255,255,255,0.5);}
 
-  /* ===== ENVELOPE OVERLAY ===== */
-  .env-overlay {
-    display:none;position:fixed;inset:0;z-index:100;
-    background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);
-    align-items:center;justify-content:center;
-  }
-  .env-overlay.open{display:flex;animation:fadeOverlay 0.4s ease;}
-
-  #envelope-wrap{
-    position:relative;width:300px;height:300px;
-    animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
-  }
-  #envelope-wrap > *{position:absolute;top:0;left:0;}
-
-  #env-back{z-index:0;}
-  #env-front{z-index:10;}
-  #env-top{z-index:11;}
-  #env-letter{z-index:5;}
-
-  #env-top.animate,
-  #env-front.animate,
-  #env-back.animate,
-  #env-btn.animate{opacity:0;transition:opacity 1s ease-out;transition-delay:1s;}
-
-  /* ===== LETTER - SMOOTH SCROLL ===== */
-  #env-letter {
-    display:block;
-    background:linear-gradient(135deg,#fff9f9,#fff0f5);
-    padding:14px;
-    left:15px;right:15px;bottom:5px;top:105px;
-    box-shadow:0 4px 20px rgba(0,0,0,0.15);
-    font-size:14px;
-
-    /* SMOOTH SCROLL FIX */
-    overflow-y:scroll;
-    overflow-x:hidden;
-    -webkit-overflow-scrolling:touch;
-    overscroll-behavior:contain;
-    scroll-behavior:smooth;
-    touch-action:pan-y;
-    -ms-touch-action:pan-y;
-    user-select:text;
-    -webkit-user-select:text;
-
-    border-radius:8px;
-    opacity:0;
-    max-height:195px;
-  }
-
-  #env-letter.animate{
-    animation:letterBig 2s cubic-bezier(0.25,0.1,0.25,1) forwards;
-    animation-delay:1s;
-  }
-  @keyframes letterBig{
-    0%{top:105px;left:15px;right:15px;bottom:5px;opacity:0;max-height:195px;}
-    33%{top:-80px;left:15px;right:15px;bottom:130px;opacity:0.5;max-height:195px;}
-    100%{top:-30px;left:-40px;right:-40px;bottom:-120px;opacity:1;max-height:420px;}
-  }
-
-  #env-letter::-webkit-scrollbar{width:5px;}
-  #env-letter::-webkit-scrollbar-thumb{background:#f7a8c4;border-radius:3px;}
-  #env-letter::-webkit-scrollbar-track{background:transparent;}
-
-  .letter-inner{padding:6px 4px;cursor:default;}
-  .letter-inner h2{font-family:'Dancing Script',cursive;font-size:1.5rem;color:#c2185b;margin-bottom:10px;}
-  .letter-inner p{font-family:'Dancing Script',cursive;font-size:1.1rem;line-height:1.7;color:#5a2a3a;margin-bottom:8px;}
-  .letter-inner .sign{font-family:'Dancing Script',cursive;font-size:1.3rem;color:#e91e8c;text-align:right;margin-top:12px;}
-  .hearts{font-size:1.1rem;letter-spacing:4px;text-align:center;margin:8px 0;}
-
-  #env-btn {
-    position:absolute;z-index:15;
-    width:54px;height:54px;border-radius:50%;border:none;
-    background:linear-gradient(135deg,#ff6b9d,#ff4081);
-    color:#fff;font-size:1.3rem;cursor:pointer;
-    top:calc(200px - 27px);left:calc(150px - 27px);
-    box-shadow:0 4px 15px rgba(255,64,129,0.4);
-    transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;
-  }
-  #env-btn:hover{transform:scale(1.2);box-shadow:0 6px 20px rgba(255,64,129,0.6);}
-
-  .close-btn {
-    position:absolute;top:-44px;right:-10px;
-    background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
-    border-radius:50%;width:36px;height:36px;color:#fff;font-size:1rem;
-    cursor:pointer;display:flex;align-items:center;justify-content:center;
-    transition:background 0.3s;z-index:200;
-  }
-  .close-btn:hover{background:rgba(255,255,255,0.25);}
-
   .confetti-piece{
     position:fixed;width:8px;height:8px;top:-20px;border-radius:2px;
     animation:fall linear forwards;pointer-events:none;
@@ -369,16 +267,15 @@
 
   <div class="arrived-msg" id="arrivedMsg">🎉 Saturday is Here! 🎉</div>
 
-  <!-- Envelope Button -->
+  <!-- Button - always unlocked, no date restriction -->
   <div class="env-btn-wrap">
-    <button class="env-btn locked" id="envTrigger" onclick="handleEnvClick()">
+    <button class="env-btn" onclick="openPwModal()">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
       </svg>
-      <span id="envBtnText">Locked Until Feb 28</span>
+      <span>Open Your Surprise</span>
     </button>
-    <div class="lock-hint" id="lockHint">🔒 Opens on Saturday · Hint: <span>last1</span></div>
   </div>
 
   <div class="event-date">Arriving on</div>
@@ -394,7 +291,7 @@
   <div class="pw-box">
     <div class="pw-lock-icon">🔐</div>
     <div class="pw-title">Enter Password</div>
-    <div class="pw-hint">Hint: <strong>last1</strong></div>
+    <div class="pw-hint">Hint: <strong>Last</strong></div>
     <div class="pw-input-wrap">
       <input
         class="pw-input"
@@ -412,55 +309,8 @@
   </div>
 </div>
 
-<!-- ENVELOPE OVERLAY -->
-<div class="env-overlay" id="envOverlay">
-  <div id="envelope-wrap">
-    <button class="close-btn" onclick="closeEnvOverlay()">✕</button>
-
-    <div id="env-back">
-      <svg xmlns="http://www.w3.org/2000/svg" height="300" width="300">
-        <polygon points="0,100 300,100 300,300 0,300" style="fill:#4a1a30"/>
-      </svg>
-    </div>
-
-    <div id="env-letter">
-      <div class="letter-inner">
-        <h2>My Dearest ♡</h2>
-        <div class="hearts">♡ ♡ ♡</div>
-        <p>There are some people who come into your life and make everything brighter — you are one of those rare souls.</p>
-        <p>Every day feels lighter because you exist in it. Every smile feels warmer, every moment feels more alive.</p>
-        <p>I don't know how to say this in a way that does it justice — but you mean the world to me. More than words, more than time, more than anything I can write on this little page.</p>
-        <p>This Saturday is special. <em>Because of you.</em></p>
-        <div class="hearts">🌹 💌 🌹</div>
-        <p>So here's a little secret, written just for you — I'm grateful every single day that our paths crossed.</p>
-        <p>You make ordinary moments feel like magic, and I never want to stop feeling this way around you.</p>
-        <p class="sign">With all my heart,<br>Always yours ♡</p>
-      </div>
-    </div>
-
-    <div id="env-front">
-      <svg xmlns="http://www.w3.org/2000/svg" height="300" width="300">
-        <polygon points="0,100 150,200 300,100 300,300 0,300" style="fill:#c2185b;stroke:#8b0040;stroke-width:2"/>
-        <text x="130" y="270" fill="rgba(255,255,255,0.3)" font-size="22">♡</text>
-      </svg>
-    </div>
-
-    <div id="env-top">
-      <svg xmlns="http://www.w3.org/2000/svg" height="300" width="300">
-        <polygon points="0,100 150,200 300,100" style="fill:#e91e8c;stroke:#fff;stroke-width:2">
-          <animate id="opentop" attributeName="points" dur="0.7s" fill="freeze" begin="indefinite"
-            from="0,100 150,200 300,100"
-            to="0,100 150,0 300,100"/>
-        </polygon>
-      </svg>
-    </div>
-
-    <button id="env-btn" onclick="openEnvelope()">💌</button>
-  </div>
-</div>
-
 <script>
-  // ===== STARS =====
+  // STARS
   const starsEl = document.getElementById('stars');
   for (let i = 0; i < 120; i++) {
     const s = document.createElement('div');
@@ -470,193 +320,89 @@
     starsEl.appendChild(s);
   }
 
-  // ===== COUNTDOWN =====
+  // COUNTDOWN
   const target = new Date('2026-02-28T00:00:00');
   const daysEl  = document.getElementById('days');
   const hoursEl = document.getElementById('hours');
   const minsEl  = document.getElementById('mins');
   const secsEl  = document.getElementById('secs');
 
-  function pad(n){return String(n).padStart(2,'0');}
+  function pad(n){ return String(n).padStart(2,'0'); }
 
-  function animateNum(el,val){
-    const v=pad(val);
-    if(el.textContent!==v){
-      el.classList.remove('flip');void el.offsetWidth;
-      el.classList.add('flip');el.textContent=v;
-    }
-  }
-
-  function checkSaturdayUnlock(){
-    const now = new Date();
-    // Unlock when date >= Feb 28 2026
-    const unlockDate = new Date('2026-02-28T00:00:00');
-    const btn = document.getElementById('envTrigger');
-    const hint = document.getElementById('lockHint');
-    const btnText = document.getElementById('envBtnText');
-
-    if(now >= unlockDate){
-      btn.classList.remove('locked');
-      btnText.textContent = 'Open Your Surprise';
-      // Change icon to envelope
-      btn.querySelector('svg').innerHTML = `
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-        <polyline points="22,6 12,13 2,6"/>
-      `;
-      hint.innerHTML = '💌 Enter password to reveal your surprise';
-      hint.querySelector && (hint.style.color='rgba(255,107,157,0.6)');
+  function animateNum(el, val){
+    const v = pad(val);
+    if(el.textContent !== v){
+      el.classList.remove('flip'); void el.offsetWidth;
+      el.classList.add('flip'); el.textContent = v;
     }
   }
 
   function tick(){
     const now = new Date();
     const diff = target - now;
-    checkSaturdayUnlock();
-
-    if(diff<=0){
-      document.getElementById('countdown').style.display='none';
-      document.getElementById('arrivedMsg').style.display='block';
+    if(diff <= 0){
+      document.getElementById('countdown').style.display = 'none';
+      document.getElementById('arrivedMsg').style.display = 'block';
     } else {
-      animateNum(daysEl,  Math.floor(diff/86400000));
-      animateNum(hoursEl, Math.floor((diff%86400000)/3600000));
-      animateNum(minsEl,  Math.floor((diff%3600000)/60000));
-      animateNum(secsEl,  Math.floor((diff%60000)/1000));
+      animateNum(daysEl,  Math.floor(diff / 86400000));
+      animateNum(hoursEl, Math.floor((diff % 86400000) / 3600000));
+      animateNum(minsEl,  Math.floor((diff % 3600000) / 60000));
+      animateNum(secsEl,  Math.floor((diff % 60000) / 1000));
     }
   }
   tick();
-  setInterval(tick,1000);
+  setInterval(tick, 1000);
 
-  // ===== ENVELOPE BUTTON CLICK =====
-  function handleEnvClick(){
-    const btn = document.getElementById('envTrigger');
-    if(btn.classList.contains('locked')){
-      // Shake to show locked
-      btn.style.animation='none';void btn.offsetWidth;
-      btn.style.animation='shake 0.4s ease';
-      setTimeout(()=>btn.style.animation='',500);
-      return;
-    }
-    // Unlocked — show password modal
-    openPwModal();
-  }
-
-  // Shake keyframe for button
-  const styleEl = document.createElement('style');
-  styleEl.textContent=`@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}`;
-  document.head.appendChild(styleEl);
-
-  // ===== PASSWORD MODAL =====
+  // PASSWORD MODAL
   function openPwModal(){
     document.getElementById('pwOverlay').classList.add('open');
-    setTimeout(()=>document.getElementById('pwInput').focus(),300);
+    setTimeout(() => document.getElementById('pwInput').focus(), 300);
   }
   function closePwModal(){
     document.getElementById('pwOverlay').classList.remove('open');
-    document.getElementById('pwInput').value='';
-    document.getElementById('pwError').textContent='';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwError').textContent = '';
     document.getElementById('pwInput').classList.remove('error');
   }
 
-  // Close on backdrop
-  document.getElementById('pwOverlay').addEventListener('click',function(e){
-    if(e.target===this) closePwModal();
+  document.getElementById('pwOverlay').addEventListener('click', function(e){
+    if(e.target === this) closePwModal();
   });
+
+  // Valid passwords: 45, SR 7, 21, 27
+  const validPasswords = ['45', 'SR 7', 'sr 7', 'SR7', 'sr7', '21', '27'];
 
   function checkPassword(){
     const val = document.getElementById('pwInput').value.trim();
     const inp = document.getElementById('pwInput');
     const err = document.getElementById('pwError');
 
-    if(val === '0228'){
+    if(validPasswords.includes(val)){
       closePwModal();
-      openEnvOverlay();
+      launchConfetti();
+      setTimeout(() => {
+        window.open('https://75raj.github.io/chl/', '_blank');
+      }, 600);
     } else {
       inp.classList.remove('error');
       void inp.offsetWidth;
       inp.classList.add('error');
       err.textContent = '✗ Wrong password. Try again.';
-      setTimeout(()=>inp.classList.remove('error'),500);
+      setTimeout(() => inp.classList.remove('error'), 500);
     }
   }
 
-  // ===== ENVELOPE OVERLAY =====
-  let envelopeOpened = false;
-
-  function openEnvOverlay(){
-    envelopeOpened = false;
-    // Reset
-    ['env-top','env-front','env-back','env-btn','env-letter'].forEach(id=>{
-      document.getElementById(id).classList.remove('animate');
-      document.getElementById(id).style.opacity='';
-    });
-    document.getElementById('env-btn').style.display='flex';
-    document.getElementById('envOverlay').classList.add('open');
-  }
-
-  function closeEnvOverlay(){
-    document.getElementById('envOverlay').classList.remove('open');
-  }
-
-  document.getElementById('envOverlay').addEventListener('click',function(e){
-    if(e.target===this) closeEnvOverlay();
-  });
-
-  function openEnvelope(){
-    if(envelopeOpened) return;
-    envelopeOpened = true;
-
-    document.getElementById('opentop').beginElement();
-    document.getElementById('env-top').style.zIndex = 2;
-
-    ['env-top','env-front','env-back','env-btn'].forEach(id=>{
-      document.getElementById(id).classList.add('animate');
-    });
-    document.getElementById('env-letter').classList.add('animate');
-
-    setTimeout(()=>{
-      launchConfetti();
-    }, 2000);
-  }
-
-  // ===== CONFETTI =====
+  // CONFETTI
   function launchConfetti(){
-    const colors=['#f5c842','#ff6b9d','#fff','#4ecdc4','#ff4081','#c2185b'];
-    for(let i=0;i<90;i++){
-      const c=document.createElement('div');
-      c.className='confetti-piece';
-      c.style.cssText=`left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${(Math.random()*2+2).toFixed(1)}s;animation-delay:${(Math.random()*2).toFixed(1)}s;transform:rotate(${Math.random()*360}deg);`;
+    const colors = ['#f5c842','#ff6b9d','#fff','#4ecdc4','#ff4081','#c2185b'];
+    for(let i = 0; i < 90; i++){
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.cssText = `left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${(Math.random()*2+2).toFixed(1)}s;animation-delay:${(Math.random()*2).toFixed(1)}s;transform:rotate(${Math.random()*360}deg);`;
       document.body.appendChild(c);
-      setTimeout(()=>c.remove(),5000);
+      setTimeout(() => c.remove(), 5000);
     }
   }
-
-  // ===== LETTER SMOOTH SCROLL (touch + mouse) =====
-  const letter = document.getElementById('env-letter');
-
-  // Mouse wheel scroll inside letter
-  letter.addEventListener('wheel', function(e){
-    e.stopPropagation();
-  }, { passive: true });
-
-  // Pointer drag scroll for touch devices
-  let startY = 0, startScrollTop = 0, isDragging = false;
-
-  letter.addEventListener('touchstart', function(e){
-    startY = e.touches[0].clientY;
-    startScrollTop = this.scrollTop;
-    isDragging = true;
-  }, { passive: true });
-
-  letter.addEventListener('touchmove', function(e){
-    if(!isDragging) return;
-    const dy = startY - e.touches[0].clientY;
-    this.scrollTop = startScrollTop + dy;
-    e.stopPropagation();
-  }, { passive: true });
-
-  letter.addEventListener('touchend', function(){
-    isDragging = false;
-  }, { passive: true });
 </script>
 </body>
 </html>
