@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Countdown to Saturday</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400&family=DM+Mono:wght@300;400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400&family=DM+Mono:wght@300;400&family=Dancing+Script:wght@600&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --gold: #f5c842;
@@ -24,7 +24,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
   }
 
@@ -52,8 +53,8 @@
 
   .container {
     position:relative;z-index:10;text-align:center;
-    padding:30px 20px;display:flex;flex-direction:column;
-    align-items:center;
+    padding:40px 20px 50px;display:flex;flex-direction:column;
+    align-items:center;width:100%;
   }
 
   .label-top {
@@ -130,6 +131,7 @@
     padding:10px 24px;font-family:'Playfair Display',serif;
     font-size:0.95rem;color:var(--gold);
     animation:fadeUp 1s 1.2s ease both;
+    margin-bottom:36px;
   }
   .dot-icon{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:blink 1.5s ease infinite;}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
@@ -142,6 +144,84 @@
     animation:glow 2s ease infinite alternate;margin-bottom:20px;
   }
   @keyframes glow{from{filter:drop-shadow(0 0 10px rgba(245,200,66,0.5))}to{filter:drop-shadow(0 0 30px rgba(245,200,66,0.9))}}
+
+  /* HINDI TEXT */
+  .hindi-msg {
+    font-family:'Noto Sans Devanagari', 'Dancing Script', sans-serif;
+    font-size:clamp(1rem,4vw,1.5rem);
+    font-weight:600;
+    color:var(--rose);
+    letter-spacing:0.04em;
+    margin-bottom:36px;
+    animation:fadeUp 1s 1.3s ease both;
+    text-shadow:0 0 25px rgba(255,107,157,0.5);
+    display:flex;align-items:center;gap:10px;
+  }
+  .hindi-msg::before,.hindi-msg::after{
+    content:'♡';font-size:0.85rem;
+    color:rgba(255,107,157,0.5);
+  }
+
+  /* MUSIC SECTION */
+  .music-section {
+    animation:fadeUp 1s 1.4s ease both;
+    width:min(440px,92vw);
+  }
+
+  .music-label {
+    font-size:0.65rem;letter-spacing:0.4em;text-transform:uppercase;
+    color:rgba(255,255,255,0.35);margin-bottom:16px;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+  }
+  .music-label::before,.music-label::after{
+    content:'';flex:1;height:1px;
+  }
+  .music-label::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1));}
+  .music-label::after{background:linear-gradient(90deg,rgba(255,255,255,0.1),transparent);}
+
+  .playlist-grid {
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+
+  .playlist-card {
+    background:linear-gradient(135deg,rgba(255,107,157,0.07),rgba(245,200,66,0.04));
+    border:1px solid rgba(255,107,157,0.15);
+    border-radius:14px;padding:13px 14px;
+    text-decoration:none;
+    display:flex;align-items:center;gap:10px;
+    transition:all 0.3s ease;
+    position:relative;overflow:hidden;
+  }
+  .playlist-card::before {
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(255,107,157,0.1),rgba(245,200,66,0.05));
+    opacity:0;transition:opacity 0.3s;
+  }
+  .playlist-card:hover::before{opacity:1;}
+  .playlist-card:hover{
+    border-color:rgba(255,107,157,0.4);
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(255,107,157,0.15);
+  }
+
+  .pl-icon {
+    width:38px;height:38px;border-radius:50%;flex-shrink:0;
+    background:linear-gradient(135deg,#e91e8c,#ff6b9d);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1rem;
+    box-shadow:0 0 14px rgba(233,30,140,0.3);
+    position:relative;z-index:1;
+  }
+
+  .pl-info {display:flex;flex-direction:column;gap:3px;min-width:0;position:relative;z-index:1;}
+  .pl-name {
+    font-size:0.7rem;letter-spacing:0.04em;
+    color:rgba(255,255,255,0.85);
+  }
+  .pl-sub {
+    font-size:0.57rem;letter-spacing:0.1em;
+    color:rgba(255,107,157,0.6);text-transform:uppercase;
+  }
 
   @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -168,18 +248,9 @@
   .pw-lock-icon{font-size:2.5rem;margin-bottom:12px;animation:wobble 2s ease infinite;}
   @keyframes wobble{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-4deg)}80%{transform:rotate(4deg)}}
 
-  .pw-title{
-    font-family:'Playfair Display',serif;font-size:1.4rem;
-    color:#fff;margin-bottom:6px;
-  }
-  .pw-hint{
-    font-size:0.75rem;letter-spacing:0.15em;
-    color:rgba(255,255,255,0.4);margin-bottom:24px;
-    font-family:'DM Mono',monospace;
-  }
-  .pw-hint strong{
-    color:var(--rose);font-size:0.95rem;letter-spacing:0.25em;
-  }
+  .pw-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:6px;}
+  .pw-hint{font-size:0.75rem;letter-spacing:0.15em;color:rgba(255,255,255,0.4);margin-bottom:24px;font-family:'DM Mono',monospace;}
+  .pw-hint strong{color:var(--rose);font-size:0.95rem;letter-spacing:0.25em;}
 
   .pw-input-wrap{position:relative;margin-bottom:16px;}
   .pw-input {
@@ -191,47 +262,32 @@
     letter-spacing:0.4em;text-align:center;
     outline:none;transition:border-color 0.3s,box-shadow 0.3s;
   }
-  .pw-input:focus{
-    border-color:rgba(255,107,157,0.6);
-    box-shadow:0 0 20px rgba(255,107,157,0.15);
-  }
-  .pw-input.error{
-    border-color:#ff4444;box-shadow:0 0 15px rgba(255,68,68,0.2);
-    animation:shake 0.4s ease;
-  }
+  .pw-input:focus{border-color:rgba(255,107,157,0.6);box-shadow:0 0 20px rgba(255,107,157,0.15);}
+  .pw-input.error{border-color:#ff4444;box-shadow:0 0 15px rgba(255,68,68,0.2);animation:shake 0.4s ease;}
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 
-  .pw-error-msg{
-    font-size:0.7rem;color:#ff6b6b;letter-spacing:0.1em;
-    height:16px;margin-bottom:12px;transition:opacity 0.3s;
-  }
+  .pw-error-msg{font-size:0.7rem;color:#ff6b6b;letter-spacing:0.1em;height:16px;margin-bottom:12px;}
 
   .pw-submit {
     width:100%;padding:13px;
     background:linear-gradient(135deg,#e91e8c,#ff6b9d);
-    border:none;border-radius:12px;
-    color:#fff;font-family:'DM Mono',monospace;
-    font-size:0.85rem;letter-spacing:0.2em;text-transform:uppercase;
-    cursor:pointer;transition:all 0.3s;
-    box-shadow:0 4px 20px rgba(233,30,140,0.3);
+    border:none;border-radius:12px;color:#fff;
+    font-family:'DM Mono',monospace;font-size:0.85rem;letter-spacing:0.2em;text-transform:uppercase;
+    cursor:pointer;transition:all 0.3s;box-shadow:0 4px 20px rgba(233,30,140,0.3);
   }
   .pw-submit:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(233,30,140,0.4);}
-  .pw-submit:active{transform:translateY(0);}
 
-  .pw-cancel{
-    margin-top:14px;font-size:0.65rem;letter-spacing:0.2em;
-    color:rgba(255,255,255,0.25);cursor:pointer;transition:color 0.3s;
-    text-transform:uppercase;
-  }
+  .pw-cancel{margin-top:14px;font-size:0.65rem;letter-spacing:0.2em;color:rgba(255,255,255,0.25);cursor:pointer;transition:color 0.3s;text-transform:uppercase;}
   .pw-cancel:hover{color:rgba(255,255,255,0.5);}
 
-  .confetti-piece{
-    position:fixed;width:8px;height:8px;top:-20px;border-radius:2px;
-    animation:fall linear forwards;pointer-events:none;
-  }
+  .confetti-piece{position:fixed;width:8px;height:8px;top:-20px;border-radius:2px;animation:fall linear forwards;pointer-events:none;}
   @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
 
-  @media(max-width:480px){.dot{display:none}.countdown{gap:8px}}
+  @media(max-width:480px){
+    .dot{display:none}
+    .countdown{gap:8px}
+    .playlist-grid{gap:8px;}
+  }
 </style>
 </head>
 <body>
@@ -241,7 +297,7 @@
 <div class="container">
   <div class="label-top">✦ Something Special ✦</div>
   <div class="title">Almost There</div>
-  <div class="subtitle">Saturday · 28 February 2026</div>
+  <div class="subtitle">Saturday · 27 September 2025</div>
 
   <div class="countdown" id="countdown">
     <div class="unit">
@@ -267,23 +323,61 @@
 
   <div class="arrived-msg" id="arrivedMsg">🎉 Saturday is Here! 🎉</div>
 
-  <!-- Button - always unlocked, no date restriction -->
   <div class="env-btn-wrap">
     <button class="env-btn" onclick="openPwModal()">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
         <polyline points="22,6 12,13 2,6"/>
       </svg>
-      <span>Open Your Surprise</span>
+      <span>Open Dear ugfm</span>
     </button>
   </div>
 
   <div class="event-date">Arriving on</div>
   <div class="saturday-badge">
     <div class="dot-icon"></div>
-    Saturday, 28 February 2026
+    Saturday · 27 September 2025
     <div class="dot-icon"></div>
   </div>
+
+  <!-- Hindi Message -->
+  <div class="hindi-msg">ladle Music pe dhyan de</div>
+
+  <!-- Music Playlists -->
+  <div class="music-section">
+    <div class="music-label">🎵 Enjoy the Music Playlist</div>
+    <div class="playlist-grid">
+      <a class="playlist-card" href="https://youtube.com/playlist?list=RD1vsLM45B_fg&playnext=1&si=6vb-Ol3LNfdRTR10" target="_blank" rel="noopener">
+        <div class="pl-icon">🎶</div>
+        <div class="pl-info">
+          <div class="pl-name">Playlist 1</div>
+          <div class="pl-sub">Play on YouTube</div>
+        </div>
+      </a>
+      <a class="playlist-card" href="https://youtube.com/playlist?list=RDIRAai9uRgUE&playnext=1&si=W20_mwlHBV0cImML" target="_blank" rel="noopener">
+        <div class="pl-icon">🎵</div>
+        <div class="pl-info">
+          <div class="pl-name">Playlist 2</div>
+          <div class="pl-sub">Play on YouTube</div>
+        </div>
+      </a>
+      <a class="playlist-card" href="https://youtube.com/playlist?list=RDpUuUXstMviU&playnext=1&si=dPTYWqjxnFsMI6K4" target="_blank" rel="noopener">
+        <div class="pl-icon">🎸</div>
+        <div class="pl-info">
+          <div class="pl-name">Playlist 3</div>
+          <div class="pl-sub">Play on YouTube</div>
+        </div>
+      </a>
+      <a class="playlist-card" href="https://youtube.com/playlist?list=RDUmY6f6E_A6M&playnext=1&si=CzPESQ0k3NGP-77y" target="_blank" rel="noopener">
+        <div class="pl-icon">🎼</div>
+        <div class="pl-info">
+          <div class="pl-name">Playlist 4</div>
+          <div class="pl-sub">Play on YouTube</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
 </div>
 
 <!-- PASSWORD MODAL -->
@@ -369,8 +463,7 @@
     if(e.target === this) closePwModal();
   });
 
-  // Valid passwords: 45, SR 7, 21, 27
-  const validPasswords = ['45', 'SR 7', 'sr 7', 'SR7', 'sr7', '21', '27'];
+  const validPasswords = ['45', '21', '27', '75', '77', '7'];
 
   function checkPassword(){
     const val = document.getElementById('pwInput').value.trim();
